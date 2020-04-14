@@ -19,13 +19,14 @@ public class PlayerHolder : ScriptableObject
     {
         stateManagerObject = Instantiate(stateManagerPrefab) as GameObject;
         stateManager = stateManagerObject.GetComponent<StateManager>();
+        stateManager.playerHolder = this;
     }
 
     public void RegisterCharacter(GridCharacter character)
     {
         if (!characters.Contains(character))
         {
-            characters.Add (character);
+            characters.Add(character);
         }
     }
 
@@ -33,7 +34,7 @@ public class PlayerHolder : ScriptableObject
     {
         if (characters.Contains(character))
         {
-            characters.Remove (character);
+            characters.Remove(character);
         }
     }
 }

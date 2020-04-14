@@ -18,45 +18,7 @@ public class SessionManager : MonoBehaviour
 
     bool isPathfinding;
 
-    public void PathfinderCall(Node targetNode)
-    {
-        if (!isPathfinding)
-        {
-            isPathfinding = true;
-
-            Node start = turns[0].player.characters[0].currentNode;
-            if (start != null && targetNode != null)
-            {
-                PathfinderMaster
-                    .singleton
-                    .RequestPathfind(turns[0].player.characters[0],
-                    start,
-                    targetNode,
-                    PathfinderCallback,
-                    gridManager);
-            }
-            else
-            {
-                isPathfinding = false;
-            }
-        }
-    }
-
-    void PathfinderCallback(List<Node> path, GridCharacter character)
-    {
-        isPathfinding = false;
-        if (path == null) return;
-
-        pathViz.positionCount = path.Count;
-        List<Vector3> positions = new List<Vector3>();
-        for (int i = 0; i < path.Count; i++)
-        {
-            positions.Add(path[i].worldPosition + Vector3.up * .1f);
-        }
-
-        pathViz.SetPositions(positions.ToArray());
-    }
-
+    #region Init
     private void Start()
     {
         gridManager.Init();
@@ -89,6 +51,56 @@ public class SessionManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Pathfinding Calls
+    public void PathfinderCall(GridCharacter gridCharacter, Node targetNode)
+    {
+        if (!isPathfinding)
+        {
+            isPathfinding = true;
+
+            Node start = gridCharacter.currentNode;
+            if (start != null && targetNode != null)
+            {
+                PathfinderMaster
+                    .singleton
+                    .RequestPathfind(gridCharacter,
+                    start,
+                    targetNode,
+                    PathfinderCallback,
+                    gridManager);
+            }
+            else
+            {
+                isPathfinding = false;
+            }
+        }
+    }
+
+    void PathfinderCallback(List<Node> path, GridCharacter character)
+    {
+        isPathfinding = false;
+        if (path == null) return;
+
+        pathViz.positionCount = path.Count + 1;
+        List<Vector3> positions = new List<Vector3>();
+        positions.Add(character.currentNode.worldPosition);
+        for (int i = 0; i < path.Count; i++)
+        {
+            positions.Add(path[i].worldPosition - Vector3.up * .5f);
+        }
+
+        pathViz.SetPositions(positions.ToArray());
+    }
+
+    public void ClearPath()
+    {
+        pathViz.positionCount = 0;
+    }
+    #endregion
+
+    #region Update
     private void Update()
     {
         if (!isInit) return;
@@ -105,4 +117,5 @@ public class SessionManager : MonoBehaviour
             }
         }
     }
+    #endregion
 }

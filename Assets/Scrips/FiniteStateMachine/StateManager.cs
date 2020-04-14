@@ -11,10 +11,27 @@ public abstract class StateManager : MonoBehaviour
 
     public Node prevNode;
 
-    protected Dictionary<string, State>
-        states = new Dictionary<string, State>();
+    protected Dictionary<string, State> states = new Dictionary<string, State>();
 
     public float delta; // Delta time
+
+    public PlayerHolder playerHolder;
+    public GridCharacter currentCharacter
+    {
+        get
+        {
+            return _currentCharacter;
+        }
+        set
+        {
+            if (_currentCharacter != null)
+            {
+                _currentCharacter.OnDeselect(playerHolder);
+            }
+            _currentCharacter = value;
+        }
+    }
+    GridCharacter _currentCharacter;
 
     private void Start()
     {

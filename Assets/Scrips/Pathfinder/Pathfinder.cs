@@ -55,7 +55,7 @@ public class Pathfinder
         List<Node> openSet = new List<Node>();
         HashSet<Node> closedSet = new HashSet<Node>();
 
-        openSet.Add (startNode);
+        openSet.Add(startNode);
 
         while (openSet.Count > 0)
         {
@@ -78,8 +78,8 @@ public class Pathfinder
                 }
             }
 
-            openSet.Remove (currentNode);
-            closedSet.Add (currentNode);
+            openSet.Remove(currentNode);
+            closedSet.Add(currentNode);
             if (currentNode.Equals(endNode))
             {
                 foundPath = RetracePath(startNode, currentNode);
@@ -104,7 +104,7 @@ public class Pathfinder
 
                         if (!openSet.Contains(neighbour))
                         {
-                            openSet.Add (neighbour);
+                            openSet.Add(neighbour);
                         }
                     }
                 }
@@ -152,7 +152,7 @@ public class Pathfinder
 
                 if (newNode == null) continue;
 
-                retList.Add (newNode);
+                retList.Add(newNode);
             }
         }
 
@@ -180,11 +180,11 @@ public class Pathfinder
     {
         List<Node> path = new List<Node>();
 
-        Node currentNode = endNode;
+        Node currentNode = end;
 
-        while (currentNode != startNode)
+        while (currentNode != start)
         {
-            path.Add (currentNode);
+            path.Add(currentNode);
             currentNode = currentNode.parentNode;
         }
 

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
-#region Variables
+    #region Variables
     public Node[,,] grid;
 
     [SerializeField]
-    float xzScale = 1.5f;
+    public float xzScale = 1.5f;
 
     [SerializeField]
-    float yScale = 2;
+    public float yScale = 2;
 
     public Vector3 minPos;
 
@@ -30,7 +30,7 @@ public class GridManager : MonoBehaviour
     public Vector3 extends = new Vector3(0.8f, 0.8f, 0.8f);
 
 
-#endregion
+    #endregion
 
 
     bool[] floorsToShow;
@@ -61,7 +61,7 @@ public class GridManager : MonoBehaviour
             Transform t = gp[i].transform;
 
 
-#region Read Positions
+            #region Read Positions
             if (t.position.x < minX)
             {
                 minX = t.position.x;
@@ -91,7 +91,7 @@ public class GridManager : MonoBehaviour
             {
                 maxY = t.position.y;
             }
-#endregion
+            #endregion
         }
 
         XLength = Mathf.FloorToInt((maxX - minX) / xzScale);
@@ -132,10 +132,7 @@ public class GridManager : MonoBehaviour
                     n.z = z;
                     n.y = y;
 
-                    Vector3 tp = minPos;
-                    tp.x += x * xzScale + .5f;
-                    tp.z += z * xzScale + .5f;
-                    tp.y += y * yScale + .5f;
+                    Vector3 tp = minPos + new Vector3(x * xzScale + .5f, y * yScale + .5f, z * xzScale + .5f);
                     n.worldPosition = tp;
 
                     grid[x, y, z] = n;
@@ -183,7 +180,7 @@ public class GridManager : MonoBehaviour
             {
                 for (int z = startZ; z < ZLength; z++)
                 {
-                    CheckObstacles (x, y, z);
+                    CheckObstacles(x, y, z);
                 }
             }
         }
@@ -222,7 +219,7 @@ public class GridManager : MonoBehaviour
             }
             n.isWalkable = isWalkable;
         }
-        CheckForWalls (x, y, z);
+        CheckForWalls(x, y, z);
     }
 
     private void CheckForWalls(int x, int y, int z)
