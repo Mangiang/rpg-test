@@ -70,7 +70,7 @@ public class LevelEditor : EditorWindow
                 Gizmos.color = Color.blue;
                 for (int idx = 0; idx < (int)NodeDirectionEnum.LENGTH; idx++)
                 {
-                    if (nodeViz[i].canGoTo[idx] != null)
+                    if (nodeViz[i].canGoTo[idx] != null && nodeViz[i].canGoTo[idx].isWalkable)
                         Gizmos
                             .DrawLine(nodeViz[i].worldPosition + Vector3.up / 2,
                             nodeViz[i].worldPosition + NodeDirectionVector.singleton.directions[idx] / 2 + Vector3.up / 2);

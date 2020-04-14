@@ -132,7 +132,7 @@ public class GridManager : MonoBehaviour
                     n.z = z;
                     n.y = y;
 
-                    Vector3 tp = minPos + new Vector3(x * xzScale + .5f, y * yScale, z * xzScale + .5f);
+                    Vector3 tp = minPos + new Vector3(x * xzScale + .5f, y * yScale + .5f, z * xzScale + .5f);
                     n.worldPosition = tp;
 
                     grid[x, y, z] = n;
@@ -243,7 +243,7 @@ public class GridManager : MonoBehaviour
 
             node.walls[dirIdx] = null;
             Node neighbourNode = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
-            if (neighbourNode != null && neighbourNode.isWalkable)
+            if (neighbourNode != null)
                 node.canGoTo[dirIdx] = neighbourNode;
         }
     }
