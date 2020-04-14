@@ -5,7 +5,8 @@ public class Turn : ScriptableObject
 {
     public PlayerHolder player;
 
-    public int phaseIndex;
+    [System.NonSerialized]
+    public int phaseIndex = 0;
 
     public Phase[] phases;
 
@@ -13,11 +14,11 @@ public class Turn : ScriptableObject
     {
         bool result = false;
 
-        phases[phaseIndex].OnStartPhase(sm);
+        phases[phaseIndex].OnStartPhase(sm, this);
 
-        if (phases[phaseIndex].IsComplete(sm))
+        if (phases[phaseIndex].IsComplete(sm, this))
         {
-            phases[phaseIndex].OnEndPhase(sm);
+            phases[phaseIndex].OnEndPhase(sm, this);
             phaseIndex++;
             if (phaseIndex > phases.Length - 1)
             {

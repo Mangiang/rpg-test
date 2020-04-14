@@ -8,12 +8,12 @@ public class IdlePhase : Phase
         phaseName = "Idle Phase";
     }
 
-    public override bool IsComplete(SessionManager sm)
+    public override bool IsComplete(SessionManager sm, Turn turn)
     {
         return false;
     }
 
-    public override void OnStartPhase(SessionManager sm)
+    public override void OnStartPhase(SessionManager sm, Turn turn)
     {
         if (isInit)
         {

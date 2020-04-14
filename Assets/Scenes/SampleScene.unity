@@ -1230,6 +1230,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 424302497577977136, guid: ddac25cee227a2c4091822ff08c89299,
+        type: 3}
+      propertyPath: gridManager
+      value: 
+      objectReference: {fileID: 424302497577977135}
     - target: {fileID: 424302498587908577, guid: ddac25cee227a2c4091822ff08c89299,
         type: 3}
       propertyPath: m_Name
@@ -1292,6 +1297,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddac25cee227a2c4091822ff08c89299, type: 3}
+--- !u!114 &424302497577977135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 424302498587908607, guid: ddac25cee227a2c4091822ff08c89299,
+    type: 3}
+  m_PrefabInstance: {fileID: 424302497577977134}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7267d53651f5fef4b97e83f2392bbe8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4060980070823144702
 PrefabInstance:
   m_ObjectHideFlags: 0

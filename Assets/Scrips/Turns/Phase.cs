@@ -7,14 +7,14 @@ public abstract class Phase : ScriptableObject
 
     public bool exit;
 
-    public abstract bool IsComplete(SessionManager sm);
+    public abstract bool IsComplete(SessionManager sm, Turn turn);
 
     [System.NonSerialized]
     protected bool isInit;
 
-    public abstract void OnStartPhase(SessionManager sm);
+    public abstract void OnStartPhase(SessionManager sm, Turn turn);
 
-    public virtual void OnEndPhase(SessionManager sm)
+    public virtual void OnEndPhase(SessionManager sm, Turn turn)
     {
         isInit = false;
         exit = false;

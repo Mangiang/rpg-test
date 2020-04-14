@@ -15,8 +15,17 @@ public class SessionManager : MonoBehaviour
     private void Start()
     {
         gridManager.Init();
+        InitStateManagers();
         PlaceUnits();
         isInit = true;
+    }
+
+    void InitStateManagers()
+    {
+        foreach (Turn turn in turns)
+        {
+            turn.player.Init();
+        }
     }
 
     void PlaceUnits()
