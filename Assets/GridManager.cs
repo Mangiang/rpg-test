@@ -142,6 +142,7 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+        CheckObstacles();
     }
 
     public Node GetNode(Vector3 worldPosition)

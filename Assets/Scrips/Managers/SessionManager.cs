@@ -14,11 +14,54 @@ public class SessionManager : MonoBehaviour
 
     public float delta;
 
+    public LineRenderer pathViz;
+
+    bool isPathfinding;
+
+    public void PathfinderCall(Node targetNode)
+    {
+        if (!isPathfinding)
+        {
+            isPathfinding = true;
+
+            Node start = turns[0].player.characters[0].currentNode;
+            if (start != null && targetNode != null)
+            {
+                PathfinderMaster
+                    .singleton
+                    .RequestPathfind(turns[0].player.characters[0],
+                    start,
+                    targetNode,
+                    PathfinderCallback,
+                    gridManager);
+            }
+            else
+            {
+                isPathfinding = false;
+            }
+        }
+    }
+
+    void PathfinderCallback(List<Node> path, GridCharacter character)
+    {
+        isPathfinding = false;
+        if (path == null) return;
+
+        pathViz.positionCount = path.Count;
+        List<Vector3> positions = new List<Vector3>();
+        for (int i = 0; i < path.Count; i++)
+        {
+            positions.Add(path[i].worldPosition + Vector3.up * .1f);
+        }
+
+        pathViz.SetPositions(positions.ToArray());
+    }
+
     private void Start()
     {
         gridManager.Init();
-        InitStateManagers();
         PlaceUnits();
+        InitStateManagers();
         isInit = true;
     }
 
@@ -38,6 +81,7 @@ public class SessionManager : MonoBehaviour
             Node n = gridManager.GetNode(unit.transform.position);
             if (n != null)
             {
+                unit.OnInit();
                 unit.transform.position = n.worldPosition;
                 n.character = unit;
                 unit.currentNode = n;

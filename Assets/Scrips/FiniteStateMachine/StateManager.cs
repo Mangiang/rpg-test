@@ -9,6 +9,8 @@ public abstract class StateManager : MonoBehaviour
 
     public Node currentNode;
 
+    public Node prevNode;
+
     protected Dictionary<string, State>
         states = new Dictionary<string, State>();
 

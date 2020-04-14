@@ -14,11 +14,14 @@ public class DetectMousePosition : StateActions
 
         if (Physics.Raycast(ray, out hit, 1000))
         {
-            Node node = sm.gridManager.GetNode(hit.point);
-            stateManager.currentNode = node;
-            if (node != null)
+            stateManager.currentNode = sm.gridManager.GetNode(hit.point);
+            if (stateManager.currentNode != null)
             {
-                Debug.Log("Node Found");
+                if (stateManager.currentNode != stateManager.prevNode)
+                {
+                    stateManager.prevNode = stateManager.currentNode;
+                    sm.PathfinderCall(stateManager.currentNode);
+                }
             }
         }
     }

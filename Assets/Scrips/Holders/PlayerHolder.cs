@@ -10,9 +10,9 @@ public class PlayerHolder : ScriptableObject
     [System.NonSerialized]
     GameObject stateManagerObject;
 
-    [SerializeField]
-    GameObject stateManagerPrefab;
+    public GameObject stateManagerPrefab;
 
+    [System.NonSerialized]
     public List<GridCharacter> characters = new List<GridCharacter>();
 
     public void Init()
@@ -23,7 +23,7 @@ public class PlayerHolder : ScriptableObject
 
     public void RegisterCharacter(GridCharacter character)
     {
-        if (characters.Contains(character) == false)
+        if (!characters.Contains(character))
         {
             characters.Add (character);
         }
