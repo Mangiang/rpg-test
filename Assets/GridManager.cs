@@ -227,37 +227,22 @@ public class GridManager : MonoBehaviour
     private void CheckForWalls(int x, int y, int z)
     {
         Node node = grid[x, y, z];
-        node.wallForward = null;
-        node.wallBack = null;
-        node.wallLeft = null;
-        node.wallRight = null;
-        node.wallTop = null;
+        node.walls = new GridObject[(int)NodeDirectionEnum.LENGTH];
+        node.canGoTo = new Node[(int)NodeDirectionEnum.LENGTH];
+        node.isBlocked = new Node[(int)NodeDirectionEnum.LENGTH];
 
-        RaycastHit hit;
-        if (Physics.Raycast(node.worldPosition, Vector3.forward, out hit, .6f))
+        for (int dirIdx = 0; dirIdx < (int)NodeDirectionEnum.LENGTH; dirIdx++)
         {
-            node.wallForward =
-                hit.collider.gameObject.GetComponent<GridObject>();
-        }
+            RaycastHit hit;
+            if (Physics.Raycast(node.worldPosition, NodeDirectionVector.singleton.directions[dirIdx], out hit, 1f))
+            {
+                node.walls[dirIdx] = hit.collider.gameObject.GetComponent<GridObject>();
+                node.isBlocked[dirIdx] = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
+                continue;
+            }
 
-        if (Physics.Raycast(node.worldPosition, Vector3.back, out hit, .6f))
-        {
-            node.wallBack = hit.collider.gameObject.GetComponent<GridObject>();
-        }
-
-        if (Physics.Raycast(node.worldPosition, Vector3.right, out hit, .6f))
-        {
-            node.wallRight = hit.collider.gameObject.GetComponent<GridObject>();
-        }
-
-        if (Physics.Raycast(node.worldPosition, Vector3.left, out hit, .6f))
-        {
-            node.wallLeft = hit.collider.gameObject.GetComponent<GridObject>();
-        }
-
-        if (Physics.Raycast(node.worldPosition, Vector3.up, out hit, .6f))
-        {
-            node.wallTop = hit.collider.gameObject.GetComponent<GridObject>();
+            node.walls[dirIdx] = null;
+            node.canGoTo[dirIdx] = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
         }
     }
 }

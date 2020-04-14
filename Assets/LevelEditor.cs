@@ -68,29 +68,13 @@ public class LevelEditor : EditorWindow
             if (showItemIdx == 0 || showItemIdx == 2)
             {
                 Gizmos.color = Color.blue;
-                if (!nodeViz[i].wallForward)
-                    Gizmos
-                        .DrawLine(nodeViz[i].worldPosition,
-                        nodeViz[i].worldPosition + Vector3.forward / 2);
-
-                if (!nodeViz[i].wallBack)
-                    Gizmos
-                        .DrawLine(nodeViz[i].worldPosition,
-                        nodeViz[i].worldPosition + Vector3.back / 2);
-                if (!nodeViz[i].wallRight)
-                    Gizmos
-                        .DrawLine(nodeViz[i].worldPosition,
-                        nodeViz[i].worldPosition + Vector3.right / 2);
-
-                if (!nodeViz[i].wallLeft)
-                    Gizmos
-                        .DrawLine(nodeViz[i].worldPosition,
-                        nodeViz[i].worldPosition + Vector3.left / 2);
-
-                if (!nodeViz[i].wallTop)
-                    Gizmos
-                        .DrawLine(nodeViz[i].worldPosition,
-                        nodeViz[i].worldPosition + Vector3.up / 2);
+                for (int idx = 0; idx < (int)NodeDirectionEnum.LENGTH; idx++)
+                {
+                    if (!nodeViz[i].walls[idx])
+                        Gizmos
+                            .DrawLine(nodeViz[i].worldPosition,
+                            nodeViz[i].worldPosition + NodeDirectionVector.singleton.directions[idx] / 2);
+                }
             }
         }
     }

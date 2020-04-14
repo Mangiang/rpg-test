@@ -16,22 +16,14 @@ public class Node
 
     public GridObject obstacle;
 
-    // Left, Right, Front, Back, Up
-    // Bottom is the floor
-    public GridObject wallForward;
-
-    public GridObject wallBack;
-
-    public GridObject wallRight;
-
-    public GridObject wallLeft;
-
-    public GridObject wallTop;
+    public GridObject[] walls = new GridObject[(int)NodeDirectionEnum.LENGTH];
+    public Node[] canGoTo = new Node[(int)NodeDirectionEnum.LENGTH];
+    public Node[] isBlocked = new Node[(int)NodeDirectionEnum.LENGTH];
 
     public GridCharacter character;
 
 
-#region Used by A* algo
+    #region Used by A* algo
     public float hCost;
 
     public float gCost;
@@ -43,33 +35,21 @@ public class Node
             return gCost + hCost;
         }
     }
-#endregion
+    #endregion
 
 
     public Node parentNode;
 
     public bool CanGoTo(Node targetNode)
     {
-        if (targetNode.x == x + 1 && wallRight)
+        for (int idx = 0; idx < canGoTo.Length; idx++)
         {
-            return false;
+            if (canGoTo[idx] == targetNode)
+            {
+                return true;
+            }
         }
 
-        if (targetNode.x == x - 1 && wallLeft)
-        {
-            return false;
-        }
-
-        if (targetNode.z == z + 1 && wallForward)
-        {
-            return false;
-        }
-
-        if (targetNode.z == z - 1 && wallBack)
-        {
-            return false;
-        }
-
-        return true;
+        return false;
     }
 }
