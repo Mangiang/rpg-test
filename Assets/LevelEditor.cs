@@ -14,7 +14,7 @@ public class MyWindow : EditorWindow
 
     GridManager manager = null;
 
-    bool[] showFloor;
+    static bool[] showFloor;
 
     bool showIsWalkable;
 
@@ -24,6 +24,8 @@ public class MyWindow : EditorWindow
 
     public static bool showBox;
 
+    public static bool showGrid;
+
     public static List<Node> nodeViz = new List<Node>();
 
     // Add menu named "LevelEditor" to the Window menu
@@ -31,7 +33,7 @@ public class MyWindow : EditorWindow
     static void Init()
     {
         // Get existing open window or if none, make a new one:
-        MyWindow window = (MyWindow) EditorWindow.GetWindow(typeof (MyWindow));
+        MyWindow window = (MyWindow)EditorWindow.GetWindow(typeof(MyWindow));
         window.manager.Init();
         window.manager.CheckObstacles();
         window.Show();
@@ -40,6 +42,22 @@ public class MyWindow : EditorWindow
     [DrawGizmo(GizmoType.NonSelected | GizmoType.Active)]
     static void DrawGizmoForMyScript(GridManager scr, GizmoType gizmoType)
     {
+        if (showGrid)
+        {
+            Gizmos.color = Color.black;
+            for (int x = 0; x < scr.XLength; x++)
+            {
+                for (int y = 0; y < scr.YLength; y++)
+                {
+                    for (int z = 0; z < scr.ZLength; z++)
+                    {
+                        Vector3 tp = scr.minPos + new Vector3(x * scr.xzScale + .5f, y * scr.yScale, z * scr.xzScale + .5f);
+                        if (showFloor[y])
+                            Gizmos.DrawWireCube(tp, new Vector3(1, 0.01f, 1));
+                    }
+                }
+            }
+        }
         for (int i = 0; i < nodeViz.Count; i++)
         {
             if (showBox)
@@ -140,7 +158,7 @@ public class MyWindow : EditorWindow
             {
                 for (int z = startZ; z < manager.ZLength; z++)
                 {
-                    manager.CheckObstacles (x, y, z);
+                    manager.CheckObstacles(x, y, z);
                     Node node = manager.grid[x, y, z];
 
                     bool shouldShow = false;
@@ -150,7 +168,7 @@ public class MyWindow : EditorWindow
 
                     if (shouldShow)
                     {
-                        nodeViz.Add (node);
+                        nodeViz.Add(node);
                         continue;
                     }
                 }
@@ -176,6 +194,7 @@ public class MyWindow : EditorWindow
             }
 
             gizmoEnabled = EditorGUILayout.Toggle("Auto refresh", gizmoEnabled);
+            showGrid = EditorGUILayout.Toggle("Show grid", showGrid);
 
             int gridHeight = manager.grid.GetLength(1);
             if (manager.grid != null && gridHeight > 0)
@@ -185,14 +204,11 @@ public class MyWindow : EditorWindow
 
                 for (int i = 0; i < gridHeight; i++)
                 {
-                    showFloor[i] =
-                        EditorGUILayout.Toggle("Show floor " + i, showFloor[i]);
+                    showFloor[i] = EditorGUILayout.Toggle("Show floor " + i, showFloor[i]);
                 }
             }
-            showIsWalkable =
-                EditorGUILayout.Toggle("Show walkable", showIsWalkable);
-            showObstacle =
-                EditorGUILayout.Toggle("Show Obstacles", showObstacle);
+            showIsWalkable = EditorGUILayout.Toggle("Show walkable", showIsWalkable);
+            showObstacle = EditorGUILayout.Toggle("Show Obstacles", showObstacle);
             showPath = EditorGUILayout.Toggle("Show Path", showPath);
             showBox = EditorGUILayout.Toggle("Show Box", showBox);
         }
