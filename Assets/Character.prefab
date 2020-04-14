@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 745394537}
   - component: {fileID: 745394539}
   - component: {fileID: 745394538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Highlighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2923078107425095}
   - component: {fileID: 2923078107425096}
   - component: {fileID: 869532121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 11400000, guid: 40d152a610e3d0c4faf4c67720e8aed2, type: 2}
   highlighter: {fileID: 745394536}
+  moveSpeed: 3
 --- !u!136 &869532121
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -152,7 +153,7 @@ GameObject:
   - component: {fileID: 2923078934105455}
   - component: {fileID: 2923078934105746}
   - component: {fileID: 2923078934105745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -21,7 +21,7 @@ public class HandleMouseInteractions : StateActions
         RaycastHit hit;
         Debug
             .DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);
-        if (Physics.Raycast(ray, out hit, 1000))
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("MouseRaycast")))
         {
             stateManager.currentNode = sm.gridManager.GetNode(hit.point);
             IDetectableByMouse detectable = hit.transform.GetComponent<IDetectableByMouse>();
@@ -67,7 +67,6 @@ public class HandleMouseInteractions : StateActions
                 {
                     if (mouseClick)
                     {
-
                         if (currentNode.character.owner == stateManager.playerHolder)
                         {
                             currentNode.character.OnSelect(stateManager.playerHolder);

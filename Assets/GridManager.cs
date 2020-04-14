@@ -146,7 +146,7 @@ public class GridManager : MonoBehaviour
     {
         Vector3 pos = worldPosition - minPos;
         int x = Mathf.RoundToInt((pos.x - .5f) / xzScale);
-        int y = Mathf.RoundToInt(pos.y / yScale);
+        int y = Mathf.RoundToInt((pos.y - .5f) / yScale);
         int z = Mathf.RoundToInt((pos.z - .5f) / xzScale);
 
         return GetNode(x, y, z);
@@ -234,7 +234,7 @@ public class GridManager : MonoBehaviour
         for (int dirIdx = 0; dirIdx < (int)NodeDirectionEnum.LENGTH; dirIdx++)
         {
             RaycastHit hit;
-            if (Physics.Raycast(node.worldPosition, NodeDirectionVector.singleton.directions[dirIdx], out hit, 1f))
+            if (Physics.Raycast(node.worldPosition, NodeDirectionVector.singleton.directions[dirIdx], out hit, 1f, LayerMask.GetMask("WallDetection")))
             {
                 node.walls[dirIdx] = hit.collider.gameObject.GetComponent<GridObject>();
                 node.isBlocked[dirIdx] = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
