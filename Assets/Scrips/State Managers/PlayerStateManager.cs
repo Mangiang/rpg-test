@@ -13,9 +13,14 @@ public class PlayerStateManager : StateManager
 
         State wait = new State();
 
+        State moveOnPath = new State();
+        moveOnPath.actions.Add(new MoveCharacterOnPath());
+
         currentState = interactions;
+        startingState = interactions;
 
         states.Add("interactions", interactions);
         states.Add("wait", wait);
+        states.Add("moveOnPath", moveOnPath);
     }
 }

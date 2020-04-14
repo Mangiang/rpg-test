@@ -30,33 +30,49 @@ public class HandleMouseInteractions : StateActions
                 stateManager.currentNode = detectable.OnDetec();
             }
 
-            if (stateManager.currentNode != null)
+            Node currentNode = stateManager.currentNode;
+            if (currentNode != null)
             {
-                if (stateManager.currentNode.character != null)
+                if (currentNode.character != null)
                 {
-                    if (stateManager.currentNode.character.owner == stateManager.playerHolder)
+                    if (currentNode.character.owner == stateManager.playerHolder)
                     {
-                        stateManager.currentNode.character.OnHighlight(stateManager.playerHolder);
-                        prevCharacter = stateManager.currentNode.character;
+                        currentNode.character.OnHighlight(stateManager.playerHolder);
+                        prevCharacter = currentNode.character;
                     }
                     else
                     {
 
                     }
                 }
-                if (stateManager.currentCharacter != null && stateManager.currentNode.character == null)
+                if (stateManager.currentCharacter != null && currentNode.character == null)
                 {
-                    PathDetection(stateManager, sm, stateManager.currentNode);
+                    if (mouseClick)
+                    {
+
+                        if (stateManager.currentCharacter)
+                        {
+                            if (stateManager.currentCharacter.currentPath != null || stateManager.currentCharacter.currentPath.Count > 0)
+                            {
+                                stateManager.SetState("moveOnPath");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        PathDetection(stateManager, sm, currentNode);
+                    }
                 }
                 else
                 {
                     if (mouseClick)
                     {
-                        if (stateManager.currentNode.character.owner == stateManager.playerHolder)
+
+                        if (currentNode.character.owner == stateManager.playerHolder)
                         {
-                            stateManager.currentNode.character.OnSelect(stateManager.playerHolder);
+                            currentNode.character.OnSelect(stateManager.playerHolder);
                             stateManager.prevNode = null;
-                            sm.ClearPath();
+                            sm.ClearPath(stateManager);
                         }
                     }
                 }

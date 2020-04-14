@@ -1,14 +1,24 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GridCharacter : MonoBehaviour, ISelectable, IDeselectable, IHighlight, IDehighlight, IDetectableByMouse
 {
     public PlayerHolder owner;
-
-    public Node currentNode;
-
     public GameObject highlighter;
 
-    bool isSelected;
+    public float moveSpeed;
+
+
+    [HideInInspector] public Node currentNode;
+
+    [HideInInspector] bool isSelected;
+
+    [HideInInspector] public List<Node> currentPath;
+
+    public void LoadPath(List<Node> path)
+    {
+        currentPath = path;
+    }
 
     public void OnInit()
     {

@@ -91,12 +91,19 @@ public class SessionManager : MonoBehaviour
             positions.Add(path[i].worldPosition - Vector3.up * .5f);
         }
 
+        character.LoadPath(path);
+
         pathViz.SetPositions(positions.ToArray());
     }
 
-    public void ClearPath()
+    public void ClearPath(StateManager stateManager)
     {
         pathViz.positionCount = 0;
+
+        if (stateManager.currentCharacter != null)
+        {
+            stateManager.currentCharacter.currentPath = null;
+        }
     }
     #endregion
 

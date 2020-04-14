@@ -5,6 +5,8 @@ public abstract class StateManager : MonoBehaviour
 {
     public State currentState;
 
+    public State startingState;
+
     public bool forceExit; // ForceExit state
 
     public Node currentNode;
@@ -61,6 +63,11 @@ public abstract class StateManager : MonoBehaviour
         }
 
         currentState = targetState;
+    }
+
+    public void SetStartingState()
+    {
+        currentState = startingState;
     }
 
     State GetState(string id)
