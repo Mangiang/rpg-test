@@ -2,38 +2,34 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class MyWindow : EditorWindow
+public class LevelEditor : EditorWindow
 {
-    string myString = "LevelEditor";
-
     bool gizmoEnabled;
-
-    bool myBool = true;
-
-    float myFloat = 1.23f;
-
     GridManager manager = null;
 
     static bool[] showFloor;
 
-    bool showIsWalkable;
-
-    bool showObstacle;
-
-    public static bool showPath;
-
-    public static bool showBox;
-
     public static bool showGrid;
 
     public static List<Node> nodeViz = new List<Node>();
+    static int showItemIdx = 0;
+    string[] showItemOptions = new string[]
+    {
+     "Path only", "Box only", "Full","None"
+    };
+
+    static int showWalkableIdx = 0;
+    string[] showWalkableOptions = new string[]
+    {
+     "Walkable only", "Obstacles only", "All","None"
+    };
 
     // Add menu named "LevelEditor" to the Window menu
     [MenuItem("Window/LevelEditor")]
     static void Init()
     {
         // Get existing open window or if none, make a new one:
-        MyWindow window = (MyWindow)EditorWindow.GetWindow(typeof(MyWindow));
+        LevelEditor window = (LevelEditor)EditorWindow.GetWindow(typeof(LevelEditor));
         window.manager.Init();
         window.manager.CheckObstacles();
         window.Show();
@@ -58,15 +54,18 @@ public class MyWindow : EditorWindow
                 }
             }
         }
+
+        if (showItemIdx == 3) return;
+
         for (int i = 0; i < nodeViz.Count; i++)
         {
-            if (showBox)
+            if (showItemIdx == 1 || showItemIdx == 2)
             {
                 Gizmos.color = Color.red;
                 Gizmos.DrawWireCube(nodeViz[i].worldPosition, scr.extends);
             }
 
-            if (showPath)
+            if (showItemIdx == 0 || showItemIdx == 2)
             {
                 Gizmos.color = Color.blue;
                 if (!nodeViz[i].wallForward)
@@ -98,6 +97,7 @@ public class MyWindow : EditorWindow
 
     private void OnDestroy()
     {
+        showGrid = false;
         nodeViz.Clear();
         manager.Reset();
         manager = null;
@@ -111,7 +111,7 @@ public class MyWindow : EditorWindow
 
     private bool CheckIsWalkable(Node node)
     {
-        if (showIsWalkable && node.isWalkable)
+        if ((showWalkableIdx == 0 || showWalkableIdx == 2) && node.isWalkable)
         {
             return true;
         }
@@ -120,7 +120,7 @@ public class MyWindow : EditorWindow
 
     private bool CheckObstacle(Node node)
     {
-        if (showObstacle && node.obstacle != null)
+        if ((showWalkableIdx == 1 || showWalkableIdx == 2) && node.obstacle != null)
         {
             return true;
         }
@@ -207,10 +207,8 @@ public class MyWindow : EditorWindow
                     showFloor[i] = EditorGUILayout.Toggle("Show floor " + i, showFloor[i]);
                 }
             }
-            showIsWalkable = EditorGUILayout.Toggle("Show walkable", showIsWalkable);
-            showObstacle = EditorGUILayout.Toggle("Show Obstacles", showObstacle);
-            showPath = EditorGUILayout.Toggle("Show Path", showPath);
-            showBox = EditorGUILayout.Toggle("Show Box", showBox);
+            showWalkableIdx = EditorGUILayout.Popup("Display walkables/obstacles", showWalkableIdx, showWalkableOptions);
+            showItemIdx = EditorGUILayout.Popup("Show items", showItemIdx, showItemOptions);
         }
     }
 }
