@@ -27,4 +27,6 @@ public class Node
     public GridObject wallLeft;
 
     public GridObject wallTop;
+
+    public GridCharacter character;
 }

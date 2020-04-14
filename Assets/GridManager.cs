@@ -144,6 +144,30 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public Node GetNode(Vector3 worldPosition)
+    {
+        Vector3 pos = worldPosition - minPos;
+        int x = Mathf.RoundToInt(pos.x / xzScale);
+        int y = Mathf.RoundToInt(pos.y / yScale);
+        int z = Mathf.RoundToInt(pos.z / xzScale);
+
+        return GetNode(x, y, z);
+    }
+
+    public Node GetNode(int x, int y, int z)
+    {
+        if (
+            x < 0 ||
+            x > XLength - 1 ||
+            y < 0 ||
+            y > YLength - 1 ||
+            z < 0 ||
+            z > ZLength - 1
+        ) return null;
+
+        return grid[x, y, z];
+    }
+
     public void CheckObstacles()
     {
         int startY =
