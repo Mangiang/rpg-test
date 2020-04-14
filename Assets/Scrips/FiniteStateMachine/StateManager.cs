@@ -12,6 +12,8 @@ public abstract class StateManager : MonoBehaviour
     protected Dictionary<string, State>
         states = new Dictionary<string, State>();
 
+    public float delta; // Delta time
+
     private void Start()
     {
         Init();
@@ -21,6 +23,7 @@ public abstract class StateManager : MonoBehaviour
 
     public void Tick(SessionManager sm, Turn turn)
     {
+        delta = sm.delta;
         if (currentState != null)
         {
             currentState.Tick(this, sm, turn);

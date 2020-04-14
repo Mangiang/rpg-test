@@ -12,6 +12,8 @@ public class SessionManager : MonoBehaviour
 
     bool isInit;
 
+    public float delta;
+
     private void Start()
     {
         gridManager.Init();
@@ -46,6 +48,8 @@ public class SessionManager : MonoBehaviour
     private void Update()
     {
         if (!isInit) return;
+
+        delta = Time.deltaTime;
 
         if (turns[turnIndex].Execute(this))
         {
