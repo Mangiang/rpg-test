@@ -132,7 +132,7 @@ public class GridManager : MonoBehaviour
                     n.z = z;
                     n.y = y;
 
-                    Vector3 tp = minPos + new Vector3(x * xzScale + .5f, y * yScale + .5f, z * xzScale + .5f);
+                    Vector3 tp = minPos + new Vector3(x * xzScale + .5f, y * yScale, z * xzScale + .5f);
                     n.worldPosition = tp;
 
                     grid[x, y, z] = n;
@@ -145,9 +145,9 @@ public class GridManager : MonoBehaviour
     public Node GetNode(Vector3 worldPosition)
     {
         Vector3 pos = worldPosition - minPos;
-        int x = Mathf.RoundToInt(pos.x / xzScale);
+        int x = Mathf.RoundToInt((pos.x - .5f) / xzScale);
         int y = Mathf.RoundToInt(pos.y / yScale);
-        int z = Mathf.RoundToInt(pos.z / xzScale);
+        int z = Mathf.RoundToInt((pos.z - .5f) / xzScale);
 
         return GetNode(x, y, z);
     }
@@ -188,6 +188,8 @@ public class GridManager : MonoBehaviour
 
     public void CheckObstacles(int x, int y, int z)
     {
+        if (grid == null) return;
+
         Node n = grid[x, y, z];
         n.obstacle = null;
         Collider[] overlapNode =

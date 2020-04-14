@@ -159,6 +159,7 @@ public class LevelEditor : EditorWindow
                 for (int z = startZ; z < manager.ZLength; z++)
                 {
                     manager.CheckObstacles(x, y, z);
+                    if (manager.grid == null) return;
                     Node node = manager.grid[x, y, z];
 
                     bool shouldShow = false;

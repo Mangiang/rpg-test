@@ -88,7 +88,7 @@ public class SessionManager : MonoBehaviour
         positions.Add(character.currentNode.worldPosition);
         for (int i = 0; i < path.Count; i++)
         {
-            positions.Add(path[i].worldPosition - Vector3.up * .5f);
+            positions.Add(path[i].worldPosition);
         }
 
         character.LoadPath(path);
