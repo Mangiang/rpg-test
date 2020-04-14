@@ -62,7 +62,7 @@ public class LevelEditor : EditorWindow
             if (showItemIdx == 1 || showItemIdx == 2)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireCube(nodeViz[i].worldPosition, scr.extends);
+                Gizmos.DrawWireCube(nodeViz[i].worldPosition + Vector3.up / 2, scr.extends);
             }
 
             if (showItemIdx == 0 || showItemIdx == 2)
@@ -70,10 +70,10 @@ public class LevelEditor : EditorWindow
                 Gizmos.color = Color.blue;
                 for (int idx = 0; idx < (int)NodeDirectionEnum.LENGTH; idx++)
                 {
-                    if (!nodeViz[i].walls[idx])
+                    if (nodeViz[i].canGoTo[idx] != null)
                         Gizmos
-                            .DrawLine(nodeViz[i].worldPosition,
-                            nodeViz[i].worldPosition + NodeDirectionVector.singleton.directions[idx] / 2);
+                            .DrawLine(nodeViz[i].worldPosition + Vector3.up / 2,
+                            nodeViz[i].worldPosition + NodeDirectionVector.singleton.directions[idx] / 2 + Vector3.up / 2);
                 }
             }
         }

@@ -242,7 +242,9 @@ public class GridManager : MonoBehaviour
             }
 
             node.walls[dirIdx] = null;
-            node.canGoTo[dirIdx] = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
+            Node neighbourNode = GetNode(node.worldPosition + NodeDirectionVector.singleton.directions[dirIdx]);
+            if (neighbourNode != null && neighbourNode.isWalkable)
+                node.canGoTo[dirIdx] = neighbourNode;
         }
     }
 }
