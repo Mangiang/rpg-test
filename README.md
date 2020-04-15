@@ -2,6 +2,20 @@
 
 Playground for testing and making a turned based RPG.
 
+---
+
+## Dependencies
+
+- Unity 2019.3.0f1
+
+## Test with characters
+
+1. Open unity
+1. Open scene `TestScene`
+1. Play around
+
+---
+
 ## The level editor
 
 ### Open the Level Editor
@@ -28,3 +42,5 @@ Playground for testing and making a turned based RPG.
 ### Define a Wall
 
 Same as an obstacle but you need the object to be smaller than the detection of the cells (red cubes)
+
+---
