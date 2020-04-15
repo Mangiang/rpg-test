@@ -57,6 +57,12 @@ public class MoveCharacterOnPath : StateActions
             gridCharacter.currentNode.character = null;
             gridCharacter.currentNode = targetNode;
             targetNode.character = gridCharacter;
+            gridCharacter.actionPoints--;
+
+            if (gridCharacter.owner.isLocalPlayer)
+            {
+                sm.gameVariables.actionPointsInt.value = gridCharacter.actionPoints;
+            }
 
             index++;
 

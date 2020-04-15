@@ -16,3 +16,4 @@ MonoBehaviour:
   cameraTransform: {fileID: 11400000, guid: 0b7a6b4b98278bc44bb5f3eee744dad7, type: 2}
   horizontal: {fileID: 11400000, guid: bccdf35d1b2b2d84d85c8023fbdbc6ea, type: 2}
   vertical: {fileID: 11400000, guid: af06635d21e078843beb30bbe3dd0f3c, type: 2}
+  actionPointsInt: {fileID: 11400000, guid: 0ffc8461b25662a4f91d1d7787b8bdfa, type: 2}

@@ -10,6 +10,8 @@ public class PlayerHolder : ScriptableObject
     [System.NonSerialized]
     GameObject stateManagerObject;
 
+    public bool isLocalPlayer;
+
     public GameObject stateManagerPrefab;
 
     [System.NonSerialized]

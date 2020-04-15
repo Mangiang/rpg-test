@@ -106,7 +106,7 @@ Transform:
   m_GameObject: {fileID: 2923078107425094}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.089, y: 0.352, z: 1.286}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 2923078934105455}
   - {fileID: 745394537}
@@ -128,6 +128,8 @@ MonoBehaviour:
   owner: {fileID: 11400000, guid: 40d152a610e3d0c4faf4c67720e8aed2, type: 2}
   highlighter: {fileID: 745394536}
   moveSpeed: 3
+  character: {fileID: 11400000, guid: 9898a0732ec300340a479b30fa4585a3, type: 2}
+  actionPoints: 0
 --- !u!136 &869532121
 CapsuleCollider:
   m_ObjectHideFlags: 0

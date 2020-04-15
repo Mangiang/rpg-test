@@ -13,6 +13,11 @@ public class TurnStartPhase : Phase
         foreach (GridCharacter character in turn.player.characters)
         {
             character.OnStartTurn();
+
+            if (turn.player.stateManager.currentCharacter == character)
+            {
+                sm.gameVariables.actionPointsInt.value = character.actionPoints;
+            }
         }
     }
 }

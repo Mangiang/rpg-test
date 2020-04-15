@@ -15,6 +15,7 @@ public class SessionManager : MonoBehaviour
     public float delta;
 
     public LineRenderer pathViz;
+    public LineRenderer pathVizNotReachable;
 
     public VariablesHolder gameVariables;
 
@@ -85,22 +86,54 @@ public class SessionManager : MonoBehaviour
         isPathfinding = false;
         if (path == null) return;
 
-        pathViz.positionCount = path.Count + 1;
-        List<Vector3> positions = new List<Vector3>();
-        positions.Add(character.currentNode.worldPosition);
-        for (int i = 0; i < path.Count; i++)
+        List<Node> pathActual = new List<Node>();
+
+        List<Vector3> reachablePositions = new List<Vector3>();
+        List<Vector3> unreachalePositions = new List<Vector3>();
+        reachablePositions.Add(character.currentNode.worldPosition);
+
+        if (character.actionPoints > 0)
         {
-            positions.Add(path[i].worldPosition);
+            reachablePositions.Add(character.currentNode.worldPosition);
         }
 
-        character.LoadPath(path);
+        if (path.Count > character.actionPoints)
+        {
+            if (character.actionPoints == 0)
+            {
+                unreachalePositions.Add(character.currentNode.worldPosition);
+            }
+            else
+            {
+                unreachalePositions.Add(path[character.actionPoints - 1].worldPosition);
+            }
+        }
 
-        pathViz.SetPositions(positions.ToArray());
+        for (int i = 0; i < path.Count; i++)
+        {
+            if (i <= character.actionPoints - 1)
+            {
+                pathActual.Add(path[i]);
+                reachablePositions.Add(path[i].worldPosition);
+            }
+            else
+            {
+                unreachalePositions.Add(path[i].worldPosition);
+            }
+        }
+
+        pathViz.positionCount = reachablePositions.Count;
+        pathViz.SetPositions(reachablePositions.ToArray());
+        pathVizNotReachable.positionCount = unreachalePositions.Count;
+        pathVizNotReachable.SetPositions(unreachalePositions.ToArray());
+
+        character.LoadPath(pathActual);
     }
 
     public void ClearPath(StateManager stateManager)
     {
         pathViz.positionCount = 0;
+        pathVizNotReachable.positionCount = 0;
 
         if (stateManager.currentCharacter != null)
         {
@@ -108,6 +141,7 @@ public class SessionManager : MonoBehaviour
         }
     }
     #endregion
+
 
     #region Update
     private void Update()
@@ -125,6 +159,11 @@ public class SessionManager : MonoBehaviour
                 turnIndex = 0;
             }
         }
+    }
+
+    public void EndTurn()
+    {
+        turns[turnIndex].EndCurrentPhase(this);
     }
     #endregion
 }
