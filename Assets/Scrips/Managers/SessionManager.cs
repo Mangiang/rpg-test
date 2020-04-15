@@ -16,6 +16,8 @@ public class SessionManager : MonoBehaviour
 
     public LineRenderer pathViz;
 
+    public VariablesHolder gameVariables;
+
     bool isPathfinding;
 
     #region Init

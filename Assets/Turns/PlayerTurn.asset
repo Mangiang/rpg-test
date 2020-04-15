@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerTurn
   m_EditorClassIdentifier: 
   player: {fileID: 11400000, guid: 40d152a610e3d0c4faf4c67720e8aed2, type: 2}
-  phaseIndex: 0
   phases:
+  - {fileID: 11400000, guid: 3dfc6173e7b88f44cad5a462db29743c, type: 2}
   - {fileID: 11400000, guid: ddb4ed0dbf46ad54394ab80397cbffbf, type: 2}

@@ -67,11 +67,15 @@ public class HandleMouseInteractions : StateActions
                 {
                     if (mouseClick)
                     {
-                        if (currentNode.character.owner == stateManager.playerHolder)
+                        if (currentNode.character != null)
                         {
-                            currentNode.character.OnSelect(stateManager.playerHolder);
-                            stateManager.prevNode = null;
-                            sm.ClearPath(stateManager);
+                            if (currentNode.character.owner == stateManager.playerHolder)
+                            {
+                                currentNode.character.OnSelect(stateManager.playerHolder);
+                                stateManager.prevNode = null;
+                                sm.ClearPath(stateManager);
+                                sm.gameVariables.actionPointsInt.value = currentNode.character.actionPoints;
+                            }
                         }
                     }
                 }

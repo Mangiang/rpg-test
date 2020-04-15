@@ -8,6 +8,9 @@ public class GridCharacter : MonoBehaviour, ISelectable, IDeselectable, IHighlig
 
     public float moveSpeed;
 
+    public Character character;
+
+    public int actionPoints;
 
     [HideInInspector] public Node currentNode;
 
@@ -23,6 +26,11 @@ public class GridCharacter : MonoBehaviour, ISelectable, IDeselectable, IHighlig
     public void OnInit()
     {
         owner.RegisterCharacter(this);
+    }
+
+    public void OnStartTurn()
+    {
+        actionPoints = character.StartingAP;
     }
 
     public void OnSelect(PlayerHolder playerHolder)
